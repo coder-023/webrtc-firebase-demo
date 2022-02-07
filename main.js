@@ -4,7 +4,12 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 
 const firebaseConfig = {
-  // your config
+  apiKey: "AIzaSyDVr9y6YoHToa8xPu-XRTtdVcZ2mNDUXus",
+  authDomain: "webrtc1-b74b3.firebaseapp.com",
+  projectId: "webrtc1-b74b3",
+  storageBucket: "webrtc1-b74b3.appspot.com",
+  messagingSenderId: "299736381939",
+  appId: "1:299736381939:web:346815f795031392a4fa86"
 };
 
 if (!firebase.apps.length) {
@@ -67,12 +72,14 @@ callButton.onclick = async () => {
   const callDoc = firestore.collection('calls').doc();
   const offerCandidates = callDoc.collection('offerCandidates');
   const answerCandidates = callDoc.collection('answerCandidates');
-
+console.log(offerCandidates)
   callInput.value = callDoc.id;
 
   // Get candidates for caller, save to db
   pc.onicecandidate = (event) => {
+    
     event.candidate && offerCandidates.add(event.candidate.toJSON());
+    console.log(event)
   };
 
   // Create offer
