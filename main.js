@@ -43,16 +43,18 @@ const hangupButton = document.getElementById('hangupButton');
 // 1. Setup media sources
 
 webcamButton.onclick = async () => {
-  localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+  localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
   remoteStream = new MediaStream();
 
   // Push tracks from local stream to peer connection
   localStream.getTracks().forEach((track) => {
     pc.addTrack(track, localStream);
+    console.log(localStream)
   });
 
   // Pull tracks from remote stream, add to video stream
   pc.ontrack = (event) => {
+    console.log(pc);
     event.streams[0].getTracks().forEach((track) => {
       remoteStream.addTrack(track);
     });
@@ -77,9 +79,9 @@ console.log(offerCandidates)
 
   // Get candidates for caller, save to db
   pc.onicecandidate = (event) => {
-    
     event.candidate && offerCandidates.add(event.candidate.toJSON());
-    console.log(event)
+    // console.log(event.candidate);
+    // console.log(event)
   };
 
   // Create offer
@@ -90,12 +92,15 @@ console.log(offerCandidates)
     sdp: offerDescription.sdp,
     type: offerDescription.type,
   };
-
+// console.log(offerDescription);
   await callDoc.set({ offer });
+// console.log(offerDescription);
 
   // Listen for remote answer
   callDoc.onSnapshot((snapshot) => {
     const data = snapshot.data();
+console.log(data);
+
     if (!pc.currentRemoteDescription && data?.answer) {
       const answerDescription = new RTCSessionDescription(data.answer);
       pc.setRemoteDescription(answerDescription);
