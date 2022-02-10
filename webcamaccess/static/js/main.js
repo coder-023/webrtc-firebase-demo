@@ -2,7 +2,8 @@
 
 // import firebase from 'firebase/app';
 // import 'firebase/firestore';
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
+//import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
+
 const firebaseConfig = {
   apiKey: "AIzaSyDVr9y6YoHToa8xPu-XRTtdVcZ2mNDUXus",
   authDomain: "webrtc1-b74b3.firebaseapp.com",
@@ -13,8 +14,8 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-console.log(app);
+// const app = initializeApp(firebaseConfig);
+// console.log(app);
 // const firebaseConfig = {
 //   apiKey: "AIzaSyDVr9y6YoHToa8xPu-XRTtdVcZ2mNDUXus",
 //   authDomain: "webrtc1-b74b3.firebaseapp.com",
